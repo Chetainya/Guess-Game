@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import NumberContainer from "../Components/NumberContainer";
 import PrimaryButton from "../Components/PrimaryButton";
 import Card from "../Components/Card";
+import  {AntDesign}  from '@expo/vector-icons'
+
+let minBoundry = 1;
+let maxBoundry = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
-  let minBoundry = 1;
-  let maxBoundry = 100;
+ 
   let initialState = getRandomGenerator(1, 100, userNumber);
   const [currGuessNumber, setCurrGuessNumber] = useState(initialState);
 
@@ -40,6 +43,7 @@ function GameScreen({ userNumber, onGameOver }) {
       maxBoundry,
       currGuessNumber
     );
+    console.log(maxBoundry , minBoundry)
     setCurrGuessNumber(nextNumber);
   }
 
@@ -62,14 +66,14 @@ function GameScreen({ userNumber, onGameOver }) {
             <PrimaryButton
               onPress={nextRandomNumberHandeler.bind(this, "higher")}
             >
-              +
+              <AntDesign name="plus" size={24} color='white' ></AntDesign>
             </PrimaryButton>
           </View>
           <View style={styles.button}>
             <PrimaryButton
               onPress={nextRandomNumberHandeler.bind(this, "lower")}
             >
-              -
+               <AntDesign name="minus" size={24} color='white' ></AntDesign>
             </PrimaryButton>
           </View>
         </View>
