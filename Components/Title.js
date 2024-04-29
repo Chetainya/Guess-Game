@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
         borderWidth : 3,
         padding : 8,
         borderRadius : 5,
-        borderColor : "green"
+        borderColor : "white"
     },
     titleText : {
 
-        color : 'green',
+        color : 'white',
         fontSize : 24,
         fontWeight : 'bold',
         textAlign : 'center',

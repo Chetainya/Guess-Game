@@ -17,7 +17,7 @@ export default function App() {
     <LinearGradient colors={['yellow' , 'plum']} style={styles.container}>
       <ImageBackground imageStyle={styles.imageStyle} style={styles.container} source={require('./assets/Images/background.png')}>
       <SafeAreaView style={styles.container}>
-      {finalNumber ? <GameScreen /> : <GameStartScreen pickedNumber={pickedNumber} />}
+      {finalNumber ? <GameScreen userNumber={finalNumber} /> : <GameStartScreen pickedNumber={pickedNumber} />}
       </SafeAreaView>
       </ImageBackground>
     </LinearGradient>

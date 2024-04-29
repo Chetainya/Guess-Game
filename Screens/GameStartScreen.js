@@ -16,6 +16,7 @@ function GameStartScreen({pickedNumber}) {
         const userNumber = parseInt(enteredNumber);
         if(isNaN(userNumber) || userNumber <= 0 || userNumber > 99){
             Alert.alert('Invalid Number' , 'Number should be between 0 and 99' , [{text : 'Okay' , style:'destructive' , onPress: inputResetHandeler}])
+            return ;
         }
         pickedNumber(userNumber)
     }
