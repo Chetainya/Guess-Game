@@ -4,12 +4,26 @@ import GameStartScreen from './Screens/GameStartScreen';
 import {LinearGradient} from 'expo-linear-gradient'
 import { useState } from 'react';
 import GameScreen from './Screens/GameScreen'
+import GameEndScreen from './Screens/GameEndScreen'
 
 
 export default function App() {
   const [finalNumber , setFinalNumber] = useState();
+  const [gameOver , setGameOver] = useState(true);
+
   function pickedNumber(number){
     setFinalNumber(number);
+    setGameOver(false);
+  }
+  function onGameOver(){
+    setGameOver(true);
+  }
+
+  let screen =  finalNumber ? <GameScreen onGameOver={onGameOver} userNumber={finalNumber} /> : <GameStartScreen pickedNumber={pickedNumber} />
+
+ 
+  if(gameOver && finalNumber){
+    screen = <GameEndScreen />
   }
   return (
     <>
@@ -17,7 +31,7 @@ export default function App() {
     <LinearGradient colors={['yellow' , 'plum']} style={styles.container}>
       <ImageBackground imageStyle={styles.imageStyle} style={styles.container} source={require('./assets/Images/background.png')}>
       <SafeAreaView style={styles.container}>
-      {finalNumber ? <GameScreen userNumber={finalNumber} /> : <GameStartScreen pickedNumber={pickedNumber} />}
+      {screen}
       </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
