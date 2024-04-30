@@ -10,20 +10,26 @@ import GameEndScreen from './Screens/GameEndScreen'
 export default function App() {
   const [finalNumber , setFinalNumber] = useState();
   const [gameOver , setGameOver] = useState(true);
+  const [rounds , setRounds] = useState(0);
 
   function pickedNumber(number){
     setFinalNumber(number);
     setGameOver(false);
   }
-  function onGameOver(){
+  function onGameOver(rounds){
+    setRounds(rounds);
     setGameOver(true);
   }
+  function onRestartNewGame(){
+    setFinalNumber(null);
+  }
+  
 
   let screen =  finalNumber ? <GameScreen onGameOver={onGameOver} userNumber={finalNumber} /> : <GameStartScreen pickedNumber={pickedNumber} />
 
  
   if(gameOver && finalNumber){
-    screen = <GameEndScreen />
+    screen = <GameEndScreen onRestartNewGame={onRestartNewGame} userNumber={finalNumber} rounds={rounds} />
   }
   return (
     <>
