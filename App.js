@@ -33,7 +33,7 @@ export default function App() {
   }
   return (
     <>
-    <StatusBar style='auto' ></StatusBar>
+    <StatusBar style='dark' ></StatusBar>
     <LinearGradient colors={['yellow' , 'plum']} style={styles.container}>
       <ImageBackground imageStyle={styles.imageStyle} style={styles.container} source={require('./assets/Images/background.png')}>
       <SafeAreaView style={styles.container}>

@@ -1,4 +1,4 @@
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View , useWindowDimensions } from "react-native";
 import Title from "../Components/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "../Components/NumberContainer";
@@ -11,6 +11,7 @@ let minBoundry = 1;
 let maxBoundry = 100;
 
 function getRandomGenerator(max, min, exact) {
+  
   let randomNumber = Math.floor(Math.random() * (max - min)) + min;
   if (randomNumber === exact) {
     return getRandomGenerator(max, min, exact);
@@ -19,7 +20,7 @@ function getRandomGenerator(max, min, exact) {
 }
 
 function GameScreen({ userNumber, onGameOver }) {
- 
+  const {width} = useWindowDimensions();
   let initialState = getRandomGenerator(1, 100, userNumber);
   const [currGuessNumber, setCurrGuessNumber] = useState(initialState);
   const [guessRounds , setGuessRounds] = useState([initialState]);
@@ -63,11 +64,8 @@ function GameScreen({ userNumber, onGameOver }) {
     }
   }, [currGuessNumber, userNumber, onGameOver]);
 
-  return (
-    <View style={styles.container}>
-      <Title>Opponent's Guess</Title>
-
-      <NumberContainer>{currGuessNumber}</NumberContainer>
+  let content = <>
+  <NumberContainer>{currGuessNumber}</NumberContainer>
       <Card>
         
         <Text style={styles.inputText}>Higher or Lower</Text>
@@ -88,6 +86,35 @@ function GameScreen({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
+      </>;
+
+      if(width > 500){
+        content = <>
+        <View style={styles.ContentContainerWidth}>
+        <View style={styles.button}>
+            <PrimaryButton
+              onPress={nextRandomNumberHandeler.bind(this, "higher")}
+            >
+              <AntDesign name="plus" size={24} color='white' ></AntDesign>
+            </PrimaryButton>
+          </View>
+        <NumberContainer>{currGuessNumber}</NumberContainer>
+        <View style={styles.button}>
+            <PrimaryButton
+              onPress={nextRandomNumberHandeler.bind(this, "lower")}
+            >
+               <AntDesign name="minus" size={24} color='white' ></AntDesign>
+            </PrimaryButton>
+          </View>
+          </View>
+        </>
+      }
+
+  return (
+    <View style={styles.container}>
+      <Title>Opponent's Guess</Title>
+
+     {content}
       <View style={styles.listContainer}>
         <FlatList alwaysBounceVertical={false} data={guessRounds} renderItem={(itemData) => <GuessLogItem roundNumeber={guessRounds.length - itemData.index} guessNumber={itemData.item}></GuessLogItem>} keyExtractor={item => item} />
       </View>
@@ -101,6 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 18,
+    
   },
   inputText : {
     fontSize : 30,
@@ -117,5 +145,11 @@ const styles = StyleSheet.create({
   listContainer : {
     flex : 1,
     margin : 4
+  },
+  ContentContainerWidth : {
+    flexDirection : 'row',
+    alignItems : 'center',
+    justifyContent : 'center'
+  
   }
 });
